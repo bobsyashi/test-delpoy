@@ -23,3 +23,6 @@ jobs:
 
     - name: run docker
       run: docker run -d -p 8088:3000 --name test-container my-test-model
+
+    - name: Verify runinng
+      run: docker ps
