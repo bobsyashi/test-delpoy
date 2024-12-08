@@ -17,6 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      
+    - name: Push Docker image
+      run: |
+        echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        docker tag my-ai-model:latest ${{ secrets.DOCKER_USERNAME }}/ai-test:my-test-model
+        docker push ${{ secrets.DOCKER_USERNAME }}/ai-test:my-test-model
     
     - name: Build Docker image
       run: docker build -t my-test-model .
