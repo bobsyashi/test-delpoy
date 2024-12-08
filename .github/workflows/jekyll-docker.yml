@@ -1,0 +1,25 @@
+name: Deploy to decker
+
+on:
+  push:
+    branches:
+      - main
+    
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: docker build -t my-test-model .
+
+    - name: run docker
+      run: docker run -d -p 8088:3000 --name test-container my-test-model
